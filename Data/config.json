@@ -1,0 +1,11 @@
+[
+{"weight":3,"label":"Exchange Product"},
+{"weight":2,"label":"Low Filtration"},
+{"weight":3,"label":"Price"},
+{"weight":4,"label":"Product Capability"},
+{"weight":1,"label":"Installment Payment"},
+{"weight":2,"label":"Discount Query"},
+{"weight":1,"label":"Delivery"},
+{"weight":1,"label":"Want To Buy"},
+{"weight":1,"label":"No response Of PhoneCall"}
+]
