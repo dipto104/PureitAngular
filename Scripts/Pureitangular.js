@@ -3,6 +3,7 @@ var app = angular.module("demo", []);
 		   $scope.temp = "";
 		   $scope.rows = [];
 		   $scope.dataconfig=[]; // init empty array
+		   $scope.circlearra=[];
 
 
 
@@ -26,9 +27,26 @@ var app = angular.module("demo", []);
 			var x=500,y=500;
 			var r=325;
 
-			
+			function circle(x,y,r) 
+			{
+			  this.x = x;
+			  this.y = y;
+			  this.r = r;
+			}
+
+
+			function getDistance(x0, y0, x1, y1)
+			{
+			  return Math.sqrt(Math.pow(x1-x0,2) + Math.pow(y1-y0, 2));  
+			  
+			}
 
 			 $scope.startpage = function() {
+
+
+			 	
+
+
 
 				var jsonconfig=JSON.parse(JSON.stringify($scope.dataconfig));
 
@@ -51,6 +69,9 @@ var app = angular.module("demo", []);
 					ctx.fillStyle = "CornflowerBlue ";
 					ctx.fill();
 					ctx.stroke();
+
+
+
 					
 
 					ctx = c.getContext("2d");
@@ -69,6 +90,15 @@ var app = angular.module("demo", []);
 			        ctx.textAlign = 'center';
 			        ctx.fillText(jsonconfig[index].weight,(x+newx)/2,(y+newy)/2);
 
+
+			        //creation of cirlce object array
+
+			        var temp1=new circle();
+			        temp1.x=newx;
+			        temp1.y=newy;
+			        temp1.r=7*Number(jsonconfig[index].weight);
+			        $scope.circlearra.push(temp1);
+
 			        index++;
 
 					
@@ -81,6 +111,29 @@ var app = angular.module("demo", []);
 				ctx.fill();
 				ctx.stroke();
 
-				console.log("ok ok")
+				
+				console.log($scope.circlearra);
+
+				function printMousePos(event) {
+
+					var mousex=event.clientX-c.offsetLeft+$(window).scrollLeft();
+					var mousey=event.clientY-c.offsetTop+$(window).scrollTop();
+
+				 	//console.log("clientX: " + mousex +" - clientY: " +  mousey+"-circlex "+$scope.circlearra[3].x+"-circley "+$scope.circlearra[3].y);
+
+				 	for(var i=0;i<$scope.circlearra.length;i++){
+				 		var distance=getDistance($scope.circlearra[i].x,$scope.circlearra[i].y,mousex,mousey);
+				 		if(distance<$scope.circlearra[i].r){
+				 			console.log(jsonconfig[i]);
+				 			break;
+				 		}
+				 		//console.log(distance);
+				 		//console.log($scope.circlearra[i].r);
+				 	}
+
+
+				}
+
+				document.addEventListener("click", printMousePos);
 			}
 		});
